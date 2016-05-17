@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Putlocker</title>
+
+	<link rel="stylesheet" href="bulma.min.css" charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="style.css" charset="utf-8">
+
+	<script src="lib/page.js" charset="utf-8"></script>
+	<script src="lib/vue.js" charset="utf-8"></script>
+	<script src="lib/vue-router.js" charset="utf-8"></script>
+	<script src="lib/doit.js" charset="utf-8"></script>
+	<script src="lib/app.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<!-- Search Page -->
+	<template id="search-page">
+		<h1 class="title">
+			Search for a movie or series:
+		</h1>
+		<form @submit="search">
+			<p class="control has-addons">
+				<input class="input is-large" type="text" placeholder="e.g. Blues Brothers" autofocus="" v-model="query">
+				<button class="button is-primary is-large" type="submit">
+					Search
+				</button>
+			</p>
+		</form>
+	</template>
+
+	<!-- Results Page -->
+	<template id="results-page">
+		<h1 class="title">
+			Search for: <i>{{ $route.params.query }}</i>
+		</h1>
+		<loading-box :loading="$loadingRouteData"></loading-box>
+
+		<div class="columns is-multiline">
+			<template v-for="result in results">
+				<result-tile :result="result"></result-tile>
+			</template>
+		</div>
+	</template>
+
+	<template id="result-tile">
+		<div class="column is-12-mobile is-4-tablet is-2-desktop">
+			<a class="notification is-light item is-bold" @click="watch">
+				<img :src="result.cover">
+				<p class="two-line-limit">{{ result.name }}</p>
+			</a>
+		</div>
+	</template>
+
+	<!-- Results Page -->
+	<template id="result-page">
+		<loading-box :loading="$loadingRouteData"></loading-box>
+
+		<div class="notification is-light" v-if="!$loadingRouteData">
+			<div class="container">
+				{{{ videoFrame }}}
+				<br>
+				<div class="container">
+					<div v-if="result.isSeries">
+						<h1 class="title">{{title}}</h1>
+						<h2 class="subtitle">{{result.name}}</h2>
+					</div>
+					<div v-if="!result.isSeries">
+						<h1 class="title">{{result.name}}</h1>
+					</div>
+				</div>
+				<br>
+
+				<div class="container">
+					<div class="columns meta">
+						<div class="column">
+							<table class="table is-bordered is-striped is-narrow">
+								<tr v-for="meta in result.watchData.meta">
+									<td>
+										{{ $key }}
+									</td>
+									<td>
+										{{ meta }}
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="column">
+							<a class="button is-fullwidth-no-block is-primary is-medium">Something</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<template id="loading-box">
+		<h1 class="title is-center" v-if="loading">Loading...</h1>
+	</template>
+
+	<section class="hero is-light is-fullheight is-bold">
+		<div class="hero-body {{ $route.name === 'search' ? 'hero-top' : '' }}">
+			<div class="container">
+				<router-view></router-view>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
