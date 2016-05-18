@@ -5,10 +5,36 @@ use PHPHtmlParser\Dom;
 class DataParser {
 
 	public static function parse_query ($query) {
+        // SHOULD RETURN
+        // [
+        //      {
+        //          name: string,
+        //          id: int,
+        //          cover: string
+        //      }
+        // ]
 		return json_decode('[]');
 	}
 
 	public static function parse_item ($query, $url) {
+        // SHOULD RETURN:
+		// {
+		// 		name: string,
+		// 		isSeries: boolean,
+		// 		seriesData: {
+		// 			seasons: [
+		// 				[ // episode
+		// 					name: string
+		// 				]
+		// 			]
+		// 		},
+		// 		watchData: {
+		// 			meta: {},
+		// 			playerCode: string
+		// 		}
+		// }
+		//
+
 		return json_decode('{}');
 	}
 
@@ -109,24 +135,6 @@ class PutlockerParser extends DataParser {
 				]
 			];
 		}
-
-		//
-		// {
-		// 		name: string,
-		// 		isSeries: boolean,
-		// 		seriesData: {
-		// 			seasons: [
-		// 				[ // episode
-		// 					name: string
-		// 				]
-		// 			]
-		// 		},
-		// 		watchData: {
-		// 			meta: {},
-		// 			playerCode: string
-		// 		}
-		// }
-		//
 	}
 
 	private static function parse_meta ($content) {

@@ -35,3 +35,21 @@
 .is-fullwidth-no-block {
 	width: 100%;
 }
+
+.video-frame {
+    width: 100%;
+    height: 410px;
+    max-width: 728px;
+}
+
+.notification {
+    padding: 30px 35px;
+}
+
+.message.season.is-closed .message-header {
+    border-radius: 3px;
+}
+
+.message.season.is-closed .message-body {
+    display: none;
+}
