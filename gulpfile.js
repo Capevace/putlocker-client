@@ -1,13 +1,15 @@
-var gulp = require('gulp');
-var fs = require('fs');
-var browserify = require('browserify');
-var watchify = require('watchify');
-var babelify = require('babelify');
-var rimraf = require('rimraf');
-var source = require('vinyl-source-stream');
-var _ = require('lodash');
+const gulp = require('gulp');
+const fs = require('fs');
+const browserify = require('browserify');
+const watchify = require('watchify');
+const babelify = require('babelify');
+const uglify = require('gulp-uglify');
+const rimraf = require('rimraf');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const _ = require('lodash');
 
-var config = {
+const config = {
 	entryFile: './src/app.js',
 	outputDir: './public/lib',
 	outputFile: 'app.js'
@@ -33,6 +35,8 @@ function bundle() {
 		.bundle()
 		.on('error', function (err) { console.log('Error: ' + err.message); })
 		.pipe(source(config.outputFile))
+        .pipe(buffer())
+        .pipe(uglify())
 		.pipe(gulp.dest(config.outputDir));
 }
 

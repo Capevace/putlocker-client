@@ -1,6 +1,10 @@
 import Vue from 'vue';
+import videoCache from '../video-cache';
+import videoSource from '../video-source';
+import dataService from '../data-service';
+import { router } from '../router';
 
-var result = Vue.extend({
+const resultPageComponent = Vue.extend({
     template: '#result-page',
     data: function () {
         return {
@@ -131,4 +135,6 @@ var result = Vue.extend({
     }
 });
 
-export default result;
+Vue.component('result-page', resultPageComponent);
+
+export default resultPageComponent;
